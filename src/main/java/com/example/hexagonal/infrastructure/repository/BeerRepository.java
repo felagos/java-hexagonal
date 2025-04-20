@@ -7,39 +7,35 @@ import org.springframework.stereotype.Repository;
 
 import com.example.hexagonal.domain.Beer;
 import com.example.hexagonal.domain.port.IBeerRepository;
-import com.example.hexagonal.infrastructure.entity.BeerEntity;
+import com.example.hexagonal.infrastructure.mapper.BeerMapper;
 
 @Repository
 public class BeerRepository implements IBeerRepository {
 
     private final BeerJpaRepository beerJpaRepository;
+    private final BeerMapper beerMapper;
 
-    public BeerRepository(BeerJpaRepository beerJpaRepository) {
+    public BeerRepository(BeerJpaRepository beerJpaRepository, BeerMapper beerMapper) {
         this.beerJpaRepository = beerJpaRepository;
+        this.beerMapper = beerMapper;
     }
 
     @Override
     public Beer saveBeer(Beer beer) {
-        var beerEntity = new BeerEntity(beer.id(), beer.name(), beer.style(), beer.alcohol());
-
+        var beerEntity = this.beerMapper.toEntity(beer);
         var beerSaved = this.beerJpaRepository.save(beerEntity);
-        return beerSaved.toDomain();
+        return this.beerMapper.toDomain(beerSaved);
     }
 
     @Override
     public List<Beer> getAllBeers() {
         var beers = this.beerJpaRepository.findAll();
-        return beers.stream().map(
-            (el) -> new Beer(el.getId(), el.getName(), el.getStyle(), el.getAlcohol())
-        ).toList();
+        return this.beerMapper.toDomainList(beers);
     }
 
     @Override
     public Optional<Beer> getBeerById(Integer id) {
-        var beer = this.beerJpaRepository.findById(id);
-        
-        if (beer.isPresent()) return Optional.of(beer.get().toDomain());
-        return Optional.empty();
+        return this.beerJpaRepository.findById(id)
+                .map(this.beerMapper::toDomain);
     }
-
 }

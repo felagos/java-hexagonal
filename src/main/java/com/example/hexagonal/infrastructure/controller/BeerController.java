@@ -6,8 +6,8 @@ import com.example.hexagonal.application.BeerUseCase;
 import com.example.hexagonal.domain.Beer;
 import com.example.hexagonal.infrastructure.dto.BeerResponseDto;
 import com.example.hexagonal.infrastructure.dto.CreateBeerDto;
+import com.example.hexagonal.infrastructure.mapper.BeerMapper;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,29 +18,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class BeerController {
 
     private final BeerUseCase getBeerUseCase;
+    private final BeerMapper beerMapper;
 
-    public BeerController(BeerUseCase getBeerUseCase) {
+    public BeerController(BeerUseCase getBeerUseCase, BeerMapper beerMapper) {
         this.getBeerUseCase = getBeerUseCase;
+        this.beerMapper = beerMapper;
     }
 
     @PostMapping
     public BeerResponseDto createBeer(@RequestBody CreateBeerDto beerDto) {
-        var beer = new Beer(beerDto.getName(), beerDto.getStyle(), beerDto.getAlcohol());
+        Beer beer = beerMapper.toDomain(beerDto);
         Beer savedBeer = getBeerUseCase.saveBeer(beer);
-        return BeerResponseDto.fromDomain(savedBeer);
+        return beerMapper.toResponseDto(savedBeer);
     }
 
     @GetMapping
     public List<BeerResponseDto> getAllBeers() {
         List<Beer> beers = getBeerUseCase.getAllBeers();
-        return beers.stream()
-                .map(BeerResponseDto::fromDomain)
-                .collect(Collectors.toList());
+        return beerMapper.toResponseDtoList(beers);
     }
 
     @GetMapping("/{id}")
     public BeerResponseDto getBeer(@PathVariable Integer id) {
         Beer beer = getBeerUseCase.getBeer(id);
-        return BeerResponseDto.fromDomain(beer);
+        return beerMapper.toResponseDto(beer);
     }
 }
