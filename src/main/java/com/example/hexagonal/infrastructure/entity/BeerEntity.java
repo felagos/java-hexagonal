@@ -38,10 +38,6 @@ public class BeerEntity {
         this.alcohol = beer.alcohol();
     }
     
-    public Beer toDomain() {
-        return new Beer(this.id, this.name, this.style, this.alcohol);
-    }
-
     public Integer getId() {
         return id;
     }
