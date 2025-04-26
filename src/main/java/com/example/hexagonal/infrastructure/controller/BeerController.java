@@ -8,6 +8,9 @@ import com.example.hexagonal.infrastructure.dto.BeerResponseDto;
 import com.example.hexagonal.infrastructure.dto.CreateBeerDto;
 import com.example.hexagonal.infrastructure.mapper.BeerMapper;
 import java.util.List;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +29,7 @@ public class BeerController {
     }
 
     @PostMapping
-    public BeerResponseDto createBeer(@RequestBody CreateBeerDto beerDto) {
+    public BeerResponseDto createBeer(@Valid @RequestBody CreateBeerDto beerDto) {
         Beer beer = beerMapper.toDomain(beerDto);
         Beer savedBeer = getBeerUseCase.saveBeer(beer);
         return beerMapper.toResponseDto(savedBeer);
