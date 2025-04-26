@@ -2,8 +2,9 @@ package com.example.hexagonal.application;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+
+import com.example.hexagonal.application.exception.BeerNotFoundException;
 import com.example.hexagonal.domain.Beer;
-import com.example.hexagonal.domain.exception.BeerNotFoundException;
 import com.example.hexagonal.domain.port.IBeerRepository;
 
 @Service

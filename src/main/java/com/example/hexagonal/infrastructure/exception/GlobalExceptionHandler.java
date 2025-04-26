@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.example.hexagonal.domain.exception.BeerNotFoundException;
+import com.example.hexagonal.application.exception.BeerNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
