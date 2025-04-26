@@ -16,7 +16,7 @@ public class BeerUseCase {
         this.beerRepository = beerRepository;
     }
 
-    public Beer getBeer(Integer id) throws BeerNotFoundException {
+    public Beer getBeer(Integer id) {
         return beerRepository.getBeerById(id)
                 .orElseThrow(() -> new BeerNotFoundException("Beer not found"));
     }
