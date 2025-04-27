@@ -1,6 +1,5 @@
 package com.example.hexagonal.infrastructure.client;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
