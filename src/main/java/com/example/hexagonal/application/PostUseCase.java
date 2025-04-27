@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.hexagonal.application.exception.PostNotFoundException;
 import com.example.hexagonal.domain.Post;
 import com.example.hexagonal.domain.port.IRestClient;
 
@@ -21,7 +22,9 @@ public class PostUseCase {
     }
 
     public Post getPostById(Integer id) {
-        return postRepository.getDataById(id).orElse(null);
+        return postRepository
+            .getDataById(id)
+            .orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
     }
 
 }

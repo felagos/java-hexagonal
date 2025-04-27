@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.hexagonal.application.exception.BeerNotFoundException;
+import com.example.hexagonal.application.exception.PostNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -30,7 +31,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BeerNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Map<String, String>> handleNotFoundException(BeerNotFoundException ex) {
+    public ResponseEntity<Map<String, String>> handleBeerNotFoundException(BeerNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+    
+    @ExceptionHandler(PostNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<Map<String, String>> handlePostNotFoundException(PostNotFoundException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("message", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
