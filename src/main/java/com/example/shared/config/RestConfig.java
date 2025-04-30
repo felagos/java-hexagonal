@@ -1,4 +1,4 @@
-package com.example.beer.infrastructure.config;
+package com.example.shared.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

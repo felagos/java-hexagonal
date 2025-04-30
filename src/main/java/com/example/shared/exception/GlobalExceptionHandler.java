@@ -1,4 +1,4 @@
-package com.example.beer.infrastructure.exception;
+package com.example.shared.exception;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.beer.application.exception.BeerNotFoundException;
-import com.example.beer.application.exception.PostNotFoundException;
+import com.example.post.application.exception.PostNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

@@ -1,12 +1,12 @@
-package com.example.beer.application;
+package com.example.post.application;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.beer.application.exception.PostNotFoundException;
-import com.example.beer.domain.Post;
-import com.example.beer.domain.port.IRestClient;
+import com.example.post.application.exception.PostNotFoundException;
+import com.example.post.domain.Post;
+import com.example.post.domain.port.IRestClient;
 
 @Service
 public class PostUseCase {
@@ -26,5 +26,4 @@ public class PostUseCase {
             .getDataById(id)
             .orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
     }
-
 }

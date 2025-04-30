@@ -1,4 +1,4 @@
-package com.example.beer.application.exception;
+package com.example.post.application.exception;
 
 public class PostNotFoundException extends RuntimeException {
     

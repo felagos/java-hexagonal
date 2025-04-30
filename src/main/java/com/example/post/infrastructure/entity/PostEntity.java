@@ -1,4 +1,4 @@
-package com.example.beer.infrastructure.entity;
+package com.example.post.infrastructure.entity;
 
 public class PostEntity {
 
@@ -47,5 +47,4 @@ public class PostEntity {
     public String toString() {
         return "PostEntity [userId=" + userId + ", id=" + id + ", title=" + title + ", body=" + body + "]";
     }
-
 }

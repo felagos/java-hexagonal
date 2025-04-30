@@ -1,24 +1,23 @@
-package com.example.beer.infrastructure.client;
+package com.example.post.infrastructure.client;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Repository;
-
-import com.example.beer.domain.Post;
-import com.example.beer.domain.port.IRestClient;
-import com.example.beer.infrastructure.entity.PostEntity;
-import com.example.beer.infrastructure.mapper.PostMapper;
+import com.example.post.domain.Post;
+import com.example.post.domain.port.IRestClient;
+import com.example.post.infrastructure.entity.PostEntity;
+import com.example.post.infrastructure.mapper.PostMapper;
+import com.example.shared.config.HttpClient;
 
 @Repository
 public class PostRestClient implements IRestClient<Post> {
     
     private static final String POSTS_API_URL = "https://jsonplaceholder.typicode.com/posts";
     
-    private final RestClient restClient;
+    private final HttpClient restClient;
     private final PostMapper postMapper;
     
-    public PostRestClient(RestClient restClient, PostMapper postMapper) {
+    public PostRestClient(HttpClient restClient, PostMapper postMapper) {
         this.restClient = restClient;
         this.postMapper = postMapper;
     }
@@ -36,5 +35,4 @@ public class PostRestClient implements IRestClient<Post> {
 
         return Optional.ofNullable(postMapper.toDomain(postEntity));
     }
-    
 }

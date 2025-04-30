@@ -1,6 +1,6 @@
-package com.example.beer.infrastructure.dto;
+package com.example.post.infrastructure.dto;
 
-import com.example.beer.domain.Post;
+import com.example.post.domain.Post;
 
 public class PostResponseDto {
     private Integer userId;

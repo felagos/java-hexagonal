@@ -1,4 +1,4 @@
-package com.example.beer.infrastructure.mapper;
+package com.example.post.infrastructure.mapper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.example.beer.domain.Post;
-import com.example.beer.infrastructure.entity.PostEntity;
+import com.example.post.domain.Post;
+import com.example.post.infrastructure.entity.PostEntity;
 
 @Component
 public class PostMapper {

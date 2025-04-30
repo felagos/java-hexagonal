@@ -1,4 +1,4 @@
-package com.example.beer.domain.port;
+package com.example.post.domain.port;
 
 import java.util.List;
 import java.util.Optional;

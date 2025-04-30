@@ -24,7 +24,3 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.springframework.boot:spring-boot-starter-validation:3.4.5")
 }
-
-tasks.withType<Test> {
-	useJUnitPlatform()
-}

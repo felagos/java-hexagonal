@@ -1,14 +1,14 @@
-package com.example.beer.infrastructure.client;
+package com.example.shared.config;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class RestClient {
+public class HttpClient {
     
     private final RestTemplate restTemplate;
     
-    public RestClient(RestTemplate restTemplate) {
+    public HttpClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
     
