@@ -13,7 +13,6 @@ import com.example.pos.infrastructure.dto.ConceptResponseDto;
 import com.example.pos.infrastructure.dto.SaleRequestDto;
 import com.example.pos.infrastructure.dto.SaleResponseDto;
 import com.example.pos.infrastructure.entity.SaleEntity;
-import com.example.pos.infrastructure.entity.ConceptEntity;
 
 @Component
 public class SaleMapper {
