@@ -2,6 +2,7 @@ package com.example.pos.application;
 
 import org.springframework.stereotype.Service;
 
+import com.example.pos.application.exception.SaleCreationException;
 import com.example.pos.application.exception.SaleNotFoundException;
 import com.example.pos.domain.Sale;
 import com.example.pos.domain.port.ISaleRepository;
@@ -16,7 +17,13 @@ public class GenerateSaleUseCase {
     }
 
     public Sale generateSale(Sale sale) {
-        return this.saleRepository.createSale(sale);
+        Sale saleSaved = this.saleRepository.createSale(sale);
+
+        if(!sale.isValid()) {
+            throw new SaleCreationException("Sale is not valid");
+        }
+
+        return saleSaved;
     }
 
     public Sale getSaleById(Integer id) {
