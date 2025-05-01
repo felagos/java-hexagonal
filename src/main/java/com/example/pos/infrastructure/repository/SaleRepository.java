@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.pos.domain.Sale;
 import com.example.pos.domain.port.ISaleRepository;
+import com.example.pos.infrastructure.entity.SaleEntity;
 import com.example.pos.infrastructure.mapper.SaleMapper;
 
 @Repository
@@ -21,7 +22,7 @@ public class SaleRepository implements ISaleRepository {
 
     @Override
     public Sale createSale(Sale sale) {
-        var saleEntity = this.saleMapper.toEntity(sale);
+        SaleEntity saleEntity = this.saleMapper.toEntity(sale);
         var savedEntity = this.saleRepositoryJpa.save(saleEntity);
         return this.saleMapper.toDomain(savedEntity);
     }
