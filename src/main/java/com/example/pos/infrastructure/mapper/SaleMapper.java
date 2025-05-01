@@ -10,39 +10,33 @@ import com.example.pos.domain.Concept;
 import com.example.pos.domain.Sale;
 import com.example.pos.infrastructure.dto.ConceptDto;
 import com.example.pos.infrastructure.dto.ConceptResponseDto;
-import com.example.pos.infrastructure.dto.SaleRequestDto;
-import com.example.pos.infrastructure.dto.SaleResponseDto;
+import com.example.pos.infrastructure.dto.SaleCreateDto;
+import com.example.pos.infrastructure.dto.SaleCreatedDto;
 import com.example.pos.infrastructure.entity.SaleEntity;
 
 @Component
 public class SaleMapper {
 
-    public Sale toEntity(SaleRequestDto dto) {
+    public Sale toEntity(SaleCreateDto dto) {
         List<Concept> concepts = dto.getConcepts().stream()
-            .map(this::toEntity)
-            .collect(Collectors.toList());
-        
+                .map(this::toEntity)
+                .collect(Collectors.toList());
+
         return new Sale(LocalDateTime.now(), concepts);
     }
-    
+
     public Concept toEntity(ConceptDto dto) {
         return new Concept(dto.getIdBeer(), dto.getQuantity(), dto.getUnitPrice());
     }
-    
-    public SaleResponseDto toDto(Sale sale) {
+
+    public SaleCreatedDto toDto(Sale sale) {
         List<ConceptResponseDto> conceptDtos = sale.concepts().stream()
-            .map(this::toDto)
-            .collect(Collectors.toList());
-        
-        SaleResponseDto responseDto = new SaleResponseDto();
-        responseDto.setId(sale.id());
-        responseDto.setDate(sale.date());
-        responseDto.setTotal(sale.total());
-        responseDto.setConcepts(conceptDtos);
-            
-        return responseDto;
+                .map(this::toDto)
+                .collect(Collectors.toList());
+
+        return new SaleCreatedDto(sale.id(), sale.date(), sale.total(), conceptDtos);
     }
-    
+
     public ConceptResponseDto toDto(Concept concept) {
         ConceptResponseDto dto = new ConceptResponseDto();
         dto.setIdBeer(concept.idBeer());
@@ -51,11 +45,11 @@ public class SaleMapper {
         dto.setPrice(concept.price());
         return dto;
     }
-    
+
     public SaleEntity toEntity(Sale sale) {
         return SaleEntity.fromDomain(sale);
     }
-    
+
     public Sale toDomain(SaleEntity entity) {
         return entity.toDomain();
     }

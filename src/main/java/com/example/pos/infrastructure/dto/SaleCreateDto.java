@@ -5,17 +5,17 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import java.util.List;
 
-public class SaleRequestDto {
+public class SaleCreateDto {
     
     @NotEmpty(message = "Concepts list cannot be empty")
     @Size(min = 1, message = "Sale must have at least one concept")
     @Valid
     private List<ConceptDto> concepts;
     
-    public SaleRequestDto() {
+    public SaleCreateDto() {
     }
     
-    public SaleRequestDto(List<ConceptDto> concepts) {
+    public SaleCreateDto(List<ConceptDto> concepts) {
         this.concepts = concepts;
     }
     

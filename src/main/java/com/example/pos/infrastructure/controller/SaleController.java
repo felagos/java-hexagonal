@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pos.application.GenerateSaleUseCase;
 import com.example.pos.domain.Sale;
-import com.example.pos.infrastructure.dto.SaleRequestDto;
-import com.example.pos.infrastructure.dto.SaleResponseDto;
+import com.example.pos.infrastructure.dto.SaleCreateDto;
+import com.example.pos.infrastructure.dto.SaleCreatedDto;
 import com.example.pos.infrastructure.mapper.SaleMapper;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/sales")
@@ -28,17 +30,17 @@ public class SaleController {
     }
 
     @PostMapping
-    public ResponseEntity<SaleResponseDto> createSale(@RequestBody SaleRequestDto saleRequestDto) {
+    public ResponseEntity<SaleCreatedDto> createSale(@Valid @RequestBody SaleCreateDto saleRequestDto) {
         Sale sale = saleMapper.toEntity(saleRequestDto);
         Sale createdSale = generateSaleUseCase.generateSale(sale);
-        SaleResponseDto response = saleMapper.toDto(createdSale);
+        SaleCreatedDto response = saleMapper.toDto(createdSale);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SaleResponseDto> getSaleById(@PathVariable Integer id) {
+    public ResponseEntity<SaleCreatedDto> getSaleById(@PathVariable Integer id) {
         Sale sale = generateSaleUseCase.getSaleById(id);
-        SaleResponseDto response = saleMapper.toDto(sale);
+        SaleCreatedDto response = saleMapper.toDto(sale);
         return ResponseEntity.ok(response);
     }
 }
