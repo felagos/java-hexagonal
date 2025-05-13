@@ -13,7 +13,30 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
+    networks:
+      - hexagonal-network
+
+  java-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hexagonal-java-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/hexagonal
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    restart: unless-stopped
+    networks:
+      - hexagonal-network
 
 volumes:
   postgres_data:
     driver: local
+
+networks:
+  hexagonal-network:
+    driver: bridge
